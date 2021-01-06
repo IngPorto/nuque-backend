@@ -1,0 +1,3 @@
+{
+    "DEV_DATABASE_ACCESS" : "mongodb://localhost/nuque"
+}
