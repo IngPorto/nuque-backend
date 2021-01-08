@@ -3,11 +3,15 @@ const path = require('path')
 const rootRoute = path.join(__dirname, '/../../..')
 
 const getService = (req, res) => {
-    const server = require('express')()
-    const ruta_servicio = rootRoute + '/users_services/' + req.params.proyecto + "/" + req.params.servicio + "/" + req.params.servicio + ".js"
-    delete require.cache[require.resolve(ruta_servicio)]    
-    res.status(200)
-    res.end(require(ruta_servicio)(req, res, server))
+    try {
+        const server = require('express')()
+        const ruta_servicio = rootRoute + '/users_services/' + req.params.proyecto + "/" + req.params.servicio + "/" + req.params.servicio + ".js"
+        delete require.cache[require.resolve(ruta_servicio)]    
+        res.status(200)
+        res.end(require(ruta_servicio)(req, res, server))
+    } catch (error) {
+        res.status(500).jsonp({message:'Error launching the user service', status:'error', error: error})
+    }
 }
 
 const loadService = (req, res) => {
