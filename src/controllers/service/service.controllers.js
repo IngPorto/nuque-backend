@@ -3,6 +3,7 @@ const path = require('path')
 const rootRoute = path.join(__dirname, '/../../..')
 
 const getService = (req, res) => {
+    const server = require('express')()
     const ruta_servicio = rootRoute + '/users_services/' + req.params.proyecto + "/" + req.params.servicio + "/" + req.params.servicio + ".js"
     delete require.cache[require.resolve(ruta_servicio)]    
     res.status(200)
