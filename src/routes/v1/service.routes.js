@@ -12,7 +12,7 @@ router.get('/users_services/:proyecto/:servicio', controller.getService)
 
 router.post('/loadService', validateFileRoute, controller.loadService)
 
-router.post('/createServiceDirectory/', validateFileRoute, controller.saveService);
+router.post('/createServiceDirectory/', validateFileRoute, controller.createServiceDirectory);
 
 router.post('/saveService', validateFileRoute, validateWorkspace, controller.saveService); 
 
