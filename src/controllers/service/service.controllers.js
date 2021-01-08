@@ -1,12 +1,16 @@
+const fs = require('fs')
+const path = require('path')
+const rootRoute = path.join(__dirname, '/../../..')
+
 const getService = (req, res) => {
-    const ruta_servicio = __dirname + '/users_services/' + req.params.proyecto + "/" + req.params.servicio + "/" + req.params.servicio + ".js"
+    const ruta_servicio = rootRoute + '/users_services/' + req.params.proyecto + "/" + req.params.servicio + "/" + req.params.servicio + ".js"
     delete require.cache[require.resolve(ruta_servicio)]    
     res.status(200)
     res.end(require(ruta_servicio)(req, res, server))
 }
 
 const loadService = (req, res) => {
-    var dir = __dirname + '/users_services/' + req.body.projectCode + '/' + req.body.serviceCode;
+    var dir = rootRoute + '/users_services/' + req.body.projectCode + '/' + req.body.serviceCode;
     var dir_complete = dir + "/" + req.body.filename
     
     if (fs.existsSync(dir_complete)){
@@ -25,7 +29,7 @@ const loadService = (req, res) => {
 }
 
 const createServiceDirectory = (req, res) => {
-    var dir = __dirname + '/users_services/' + req.body.projectCode + '/' + req.body.serviceCode;
+    var dir = rootRoute + '/users_services/' + req.body.projectCode + '/' + req.body.serviceCode;
     var dir_complete = dir + "/" + req.body.filename
 
     if (!fs.existsSync(dir)){
@@ -49,13 +53,13 @@ const createServiceDirectory = (req, res) => {
             });
         });
     }else {
-      res.status(200)
-      res.end();
+        res.status(200)
+        res.end();
     }
 }
 
 const saveService = (req, res) => {
-    var dir = __dirname + '/users_services/' + req.body.projectCode + '/' + req.body.serviceCode;
+    var dir = rootRoute + '/users_services/' + req.body.projectCode + '/' + req.body.serviceCode;
     var dir_complete = dir + "/" + req.body.filename
 
     fs.writeFile( dir_complete , req.body.workspace, (err) => {
@@ -74,7 +78,7 @@ const saveService = (req, res) => {
  * Microservicio para guardar la versión .js del proyecto
  */
 const deployService = (req, res) => {
-    var dir = __dirname + '/users_services/' + req.body.projectCode + '/' + req.body.serviceCode;
+    var dir = rootRoute + '/users_services/' + req.body.projectCode + '/' + req.body.serviceCode;
     var dir_complete = dir + "/" + req.body.filename
 
     var data = "var service = function (req, res, server) { \n"
